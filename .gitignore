@@ -1,6 +1,4 @@
-target/streams
-target/scala-2.9.1/cache
-target/scala-2.9.1/classes
+target
 project
 
 # the following is for vi and emacs users

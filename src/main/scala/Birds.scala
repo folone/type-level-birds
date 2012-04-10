@@ -6,13 +6,11 @@ object Birds {
   type Idiot = {
     type Apply[A] = A
   }
-  val id: Idiot#Apply[List[Int]] = Nil
 
   // K combinator - kestrel - const. Corresponds to encoding of true in the lambda calculus.
   type Kestrel[A] = {
     type Apply[B] = A
   }
-  val kestrel: Kestrel[List[Int]]#Apply[List[String]] = Nil
 
   // B combinator, function composition.
   type Bluebird[G[_]] = {
@@ -20,7 +18,6 @@ object Birds {
       type Apply[A] = F[G[A]]
     }
   }
-  val bluebird: Bluebird[List]#Apply[List]#Apply[Int] = Nil
 
   // C combinator - cardinal - flip.
   type Cardinal[F[_,_]] = {
@@ -28,13 +25,11 @@ object Birds {
       type Apply[B] = F[B,A]
     }
   }
-  val cardinal: Cardinal[Map]#Apply[String]#Apply[Int] = Map.empty
 
   // A combinator - apply/applicator, ($)
   type Applicator[F[_]] = {
     type Apply[A] = F[A]
   }
-  val applicator: Applicator[List]#Apply[Int] = Nil
 
   // Psi combinator- psi bird, on.
   type Psi[G[_,_]] = { 
@@ -44,7 +39,6 @@ object Birds {
       }
     }
   }
-  val psi: Psi[Map]#Apply[List]#Apply[Int]#Apply[String] = Map.empty
 
   // B3 combinator - becard.
   type Becard[F[_]] = {
@@ -54,7 +48,6 @@ object Birds {
       }
     }
   }
-  val becard: Becard[List]#Apply[Set]#Apply[List]#Apply[Int] = Nil
 
   // B1 combinator - blackbird
   type Blackbird[F[_]] = {
@@ -64,7 +57,6 @@ object Birds {
       }
     }
   }
-  val blackbird: Blackbird[List]#Apply[Either]#Apply[Int]#Apply[String] = Nil
 
   // B' combinator - bluebird prime.
   type BluebirdPrime[F[_,_]] = {
@@ -74,7 +66,6 @@ object Birds {
       }
     }
   }
-  val bluebirdPrime: BluebirdPrime[Map]#Apply[List]#Apply[Int]#Apply[String] = Map.empty
 
   //  B2 combinator - bunting.
   type Bunting[F[_]] = {
@@ -86,8 +77,6 @@ object Birds {
       }
     }
   }
-  import scala.collection.generic._
-  val bunting: Bunting[List]#Apply[CanBuildFrom]#Apply[List[String]]#Apply[Int]#Apply[Set[String]] = Nil
 
   // C' combinator - no name.
   type CardinalPrime[F[_,_]] = {
@@ -97,7 +86,6 @@ object Birds {
       }
     }
   }
-  val cardinalPrime: CardinalPrime[Map]#Apply[List]#Apply[Int]#Apply[String] = Map.empty
 
   // C* combinator - cardinal once removed.
   type CardinalStar[F[_,_,_]] = {

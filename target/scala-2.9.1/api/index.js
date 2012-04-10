@@ -1,1 +1,0 @@
-Index.PACKAGES = {"info" : [], "info.folone" : [], "info.folone.birds" : [{"object" : "info\/folone\/birds\/Birds$.html", "name" : "info.folone.birds.Birds"}]};
