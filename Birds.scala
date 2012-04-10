@@ -65,7 +65,7 @@ object Birds {
   val blackbird: Blackbird[List]#Apply[Either]#Apply[Int]#Apply[String] = Nil
 
   // B' combinator - bluebird prime.
-  type BluebirdPrime[F[_,_],G[_]] = {
+  type BluebirdPrime[F[_,_]] = {
     type Apply[G[_]] = {
       type Apply[A] = {
         type Apply[B] = F[A,G[B]]
@@ -75,7 +75,7 @@ object Birds {
   val bluebirdPrime: BluebirdPrime[Map]#Apply[List]#Apply[Int]#Apply[String] = Map.empty
 
   //  B2 combinator - bunting.
-  type Bunting[F[_], G[_,_,_]] = {
+  type Bunting[F[_]] = {
     type Apply[G[_,_,_]] = {
       type Apply[A] = {
         type Apply[B] = {
@@ -88,7 +88,7 @@ object Birds {
   val bunting: Bunting[List]#Apply[CanBuildFrom]#Apply[List[String]]#Apply[Int]#Apply[Set[String]] = Nil
 
   // C' combinator - no name.
-  type CardinalPrime[F[_,_], G[_]] = {
+  type CardinalPrime[F[_,_]] = {
     type Apply[G[_]] = {
       type Apply[A] = {
         type Apply[B] = F[G[B],A]
