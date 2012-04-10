@@ -13,16 +13,20 @@ object Birds {
   val kestrel: Kestrel[List[Int]]#Apply[List[String]] = Nil
 
   // B combinator, function composition.
-  type Bluebird[F[_], G[_]] = {
-    type Apply[A] = F[G[A]]
+  type Bluebird[G[_]] = {
+    type Apply[F[_]] = {
+      type Apply[A] = F[G[A]]
+    }
   }
-  val bluebird: Bluebird[List, List]#Apply[Int] = Nil
+  val bluebird: Bluebird[List]#Apply[List]#Apply[Int] = Nil
 
   // C combinator - cardinal - flip.
   type Cardinal[F[_,_]] = {
-    type Apply[A,B] = F[B,A]
+    type Apply[A] = {
+      type Apply[B] = F[B,A]
+    }
   }
-  val cardinal: Cardinal[Map]#Apply[String, Int] = Map.empty
+  val cardinal: Cardinal[Map]#Apply[String]#Apply[Int] = Map.empty
 
   // A combinator - apply/applicator, ($)
   type Applicator[F[_]] = {
@@ -31,119 +35,199 @@ object Birds {
   val applicator: Applicator[List]#Apply[Int] = Nil
 
   // Psi combinator- psi bird, on.
-  type Psi[P[_,_], F[_]] = { 
-    type Apply[A, B] = P[F[A], F[B]]
+  type Psi[G[_,_]] = { 
+    type Apply[F[_]] = {
+      type Apply[A] = {
+        type Apply[B] = G[F[A], F[B]]
+      }
+    }
   }
-  val psi: Psi[Map, List]#Apply[Int, String] = Map.empty
+  val psi: Psi[Map]#Apply[List]#Apply[Int]#Apply[String] = Map.empty
 
   // B3 combinator - becard.
-  type Becard[F[_], G[_], H[_]] = {
-    type Apply[A] = F[G[H[A]]]
+  type Becard[F[_]] = {
+    type Apply[G[_]] = {
+      type Apply[H[_]] = {
+        type Apply[A] = F[G[H[A]]]
+      }
+    }
   }
-  val becard: Becard[List,Set,List]#Apply[Int] = Nil
+  val becard: Becard[List]#Apply[Set]#Apply[List]#Apply[Int] = Nil
 
   // B1 combinator - blackbird
-  type Blackbird[F[_], G[_,_]] = {
-    type Apply[A,B] = F[G[A,B]]
+  type Blackbird[F[_]] = {
+    type Apply[G[_,_]] = {
+      type Apply[A] =  {
+        type Apply[B] = F[G[A,B]]
+      }
+    }
   }
-  val blackbird: Blackbird[List,Either]#Apply[Int,String] = Nil
+  val blackbird: Blackbird[List]#Apply[Either]#Apply[Int]#Apply[String] = Nil
 
   // B' combinator - bluebird prime.
   type BluebirdPrime[F[_,_],G[_]] = {
-    type Apply[A,B] = F[A,G[B]]
+    type Apply[G[_]] = {
+      type Apply[A] = {
+        type Apply[B] = F[A,G[B]]
+      }
+    }
   }
-  val bluebirdPrime: BluebirdPrime[Map,List]#Apply[Int,String] = Map.empty
+  val bluebirdPrime: BluebirdPrime[Map]#Apply[List]#Apply[Int]#Apply[String] = Map.empty
 
   //  B2 combinator - bunting.
   type Bunting[F[_], G[_,_,_]] = {
-    type Apply[A,B,C] = F[G[A,B,C]]
+    type Apply[G[_,_,_]] = {
+      type Apply[A] = {
+        type Apply[B] = {
+          type Apply[C] = F[G[A,B,C]]
+        }
+      }
+    }
   }
   import scala.collection.generic._
-  val bunting: Bunting[List, CanBuildFrom]#Apply[List[String], Int, Set[String]] = Nil
+  val bunting: Bunting[List]#Apply[CanBuildFrom]#Apply[List[String]]#Apply[Int]#Apply[Set[String]] = Nil
 
   // C' combinator - no name.
   type CardinalPrime[F[_,_], G[_]] = {
-    type Apply[A,B] = F[G[B],A]
+    type Apply[G[_]] = {
+      type Apply[A] = {
+        type Apply[B] = F[G[B],A]
+      }
+    }
   }
-  val cardinalPrime: CardinalPrime[Map, List]#Apply[Int, String] = Map.empty
+  val cardinalPrime: CardinalPrime[Map]#Apply[List]#Apply[Int]#Apply[String] = Map.empty
 
   // C* combinator - cardinal once removed.
   type CardinalStar[F[_,_,_]] = {
-    type Apply[A,B,C] = F[A,C,B]
+    type Apply[A] = {
+      type Apply[B] = {
+        type Apply[C] = F[A,C,B]
+      }
+    }
   }
-  var cardinalStar: CardinalStar[CanBuildFrom]#Apply[List[String], Int, Set[String]] = _
+  var cardinalStar: CardinalStar[CanBuildFrom]#Apply[List[String]]#Apply[Int]#Apply[Set[String]] = _
 
   // C** combinator - cardinal twice removed.
   type CardinalStarStar[F[_,_,_,_]] = {
-    type Apply[A,B,C,D] = F[A,B,D,C]
+    type Apply[A] = {
+      type Apply[B] = {
+        type Apply[C] = {
+          type Apply[D] = F[A,B,D,C]
+        }
+      }
+    }
   }
   // TODO example
 
   // D1 combinator - dickcissel.
-  type Dickcissel[F[_,_,_], G[_]] = {
-    type Apply[A,B,C] = F[A,B,G[C]]
+  type Dickcissel[F[_,_,_]] = {
+    type Apply[A] = {
+      type Apply[B] = {
+        type Apply[G[_]] = {
+          type Apply[C] = F[A,B,G[C]]
+        }
+      }
+    }
   }
   // TODO example
 
   // D combinator - dove.
-  type Dove[F[_,_], G[_]] = {
-    type Apply[A,B] = F[A,G[B]]
+  type Dove[F[_,_]] = {
+    type Apply[A] = {
+      type Apply[G[_]] = {
+        type Apply[B] = F[A,G[B]]
+      }
+    }
   }
   // TODO example
 
   // D2 combinator - dovekie.
-  type Dovekie[F[_,_], G[_], H[_]] = {
-    type Apply[A,B] = F[G[A],H[B]]
+  type Dovekie[F[_,_]] = {
+    type Apply[G[_]] = {
+      type Apply[A] = {
+        type Apply[H[_]] = {
+          type Apply[B] = F[G[A],H[B]]
+        }
+      }
+    }
   }
   // TODO example
 
   // E combinator - eagle.
-  type Eagle[F[_,_], G[_,_]] = {
-    type Apply[A,B,C] = F[A,G[B,C]]
+  type Eagle[F[_,_]] = {
+    type Apply[A] = {
+      type Apply[G[_,_]] = {
+        type Apply[B] = {
+          type Apply[C] = F[A,G[B,C]]
+        }
+      }
+    }
   }
   // TODO example
 
   // E Combinator - bald eagle.
   // For alphabetical regularity it is somewhat misnamed here as eaglebald.
-  type Eaglebald[F[_,_], G[_,_], H[_,_]] = {
-    type Apply[A,B,C,D] = F[G[A,B],H[C,D]]
+  type Eaglebald[F[_,_]] = {
+    type Apply[G[_,_]] = {
+      type Apply[A] = {
+        type Apply[B] = {
+          type Apply[H[_,_]] = {
+            type Apply[C] = {
+              type Apply[D] = F[G[A,B],H[C,D]]
+            }
+          }
+        }
+      }
+    }
   }
   // TODO example
 
   // F combinator - finch.
-  type Finch[A,B] = {
-    type Apply[F[_,_]] = F[A,B]
+  type Finch[A] = {
+    type Apply[B] = {
+      type Apply[F[_,_]] = F[A,B]
+    }
   }
-  val finch: Finch[Int, String]#Apply[Map] = Map.empty
+  val finch: Finch[Int]#Apply[String]#Apply[Map] = Map.empty
 
   // F* combinator - finch once removed.
   type FinchStar[F[_,_,_]] = {
-    type Apply[A,B,C] = F[C,B,A]
+    type Apply[A] = {
+      type Apply[B] = {
+        type Apply[C] = F[C,B,A]
+      }
+    }
   }
 
   // F** combinator - finch twice removed.
   type FinchStarStar[F[_,_,_,_]] = {
-    type Apply[A,B,C,D] = F[A,D,C,B]
+    type Apply[A] = {
+      type Apply[B] = {
+        type Apply[C] = {
+          type Apply[D] = F[A,D,C,B]
+        }
+      }
+    }
   }
   // TODO example
 
   // G combinator - goldfinch.
-  type GoldFinch[F[_,_], G[_]] = {
-    type Apply[A,B] = F[B,G[A]]
+  type GoldFinch[F[_,_]] = {
+    type Apply[G[_]] = {
+      type Apply[A] = {
+        type Apply[B] = F[B,G[A]]
+      }
+    }
   }
   // TODO example
 
   // H combinator - hummingbird.
-  type Hummingbird[F[_,_,_]] {
-    type Apply[A,B] = F[A,B,A]
+  type Hummingbird[F[_,_,_]] = {
+    type Apply[A] = {
+      type Apply[B] = F[A,B,A]
+    }
   }
   // TODO example
-
-  // M combinator - mockingbird (Really?).
-  type Mockingbird[F[_]] = {
-    type Apply = F[F[_]]
-  }
-  val p: Mockingbird[List]#Apply = Nil
 
   // I* combinator - identity bird once removed
   //Alias of 'applicator'
@@ -151,7 +235,9 @@ object Birds {
 
   // I** combinator - identity bird twice removed
   type IdStarStar[F[_,_]] = {
-    type Apply[A,B] = F[A,B]
+    type Apply[A] = {
+      type Apply[B] = F[A,B]
+    }
   }
   // TODO example
 
@@ -160,20 +246,30 @@ object Birds {
   // Functional Languages' page 104). It is not the J - jay 
   // combinator of the literature. 
   type Jalt[F[_]] = {
-    type Apply[A,B] = F[A]
+    type Apply[A] = {
+      type Apply[B] = F[A]
+    }
   }
   // TODO example
 
   // ' combinator - from Joy, Rayward-Smith and Burton.
   // See the comment to 'jalt'.
   type JaltPrime[F[_,_]] = {
-    type Apply[A,B,C] = F[A,B]
+    type Apply[A] = {
+      type Apply[B] = {
+        type Apply[C] = F[A,B]
+      }
+    }
   }
   // TODO example
 
   // This is the usual J combinator.
   type Jay[F[_,_]] = {
-    type Apply[A,B,C] = F[A,F[C,B]]
+    type Apply[A] = {
+      type Apply[B] = {
+        type Apply[C] = F[A,F[C,B]]
+      }
+    }
   }
 
   // Ki - kite.
@@ -184,9 +280,179 @@ object Birds {
   }
   // TODO example
 
+  // M combinator - mockingbird (Really?).
+  type Mockingbird[F[_]] = {
+    type Apply = F[F[_]]
+  }
+  val p: Mockingbird[List]#Apply = Nil
+
   // O combinator - owl.
   type Owl[F[_]] = {
     type Apply[G[_]] = G[F[G[_]]]
+  }
+  // TODO example
+
+  // (Big) Phi combinator - phoenix - Haskell 'liftM2'.
+  type Phoenix[F[_,_]] = {
+    type Apply[G[_]] = {
+      type Apply[H[_]] = {
+        type Apply[A] = F[G[A],H[A]]
+      }
+    }
+  }
+  // TODO example
+
+  // Q4 combinator - quacky bird.
+  type Quacky[A] = {
+    type Apply[F[_]] = {
+      type Apply[G[_]] = G[F[A]]
+    }
+  }
+  // TODO example
+
+  // Q combinator - queer bird.
+  //Peter Thiemann\'s Wash, reverse composition.
+  type Queer[F[_]] = {
+    type Apply[G[_]] = {
+      type Apply[A] = G[F[A]]
+    }
+  }
+  // TODO example
+
+  // Q3 combinator - quirky bird.
+  type Quirky[F[_]] = {
+    type Apply[A] = {
+      type Apply[G[_]] = G[F[A]]
+    }
+  }
+  // TODO example
+
+  // Q1 combinator - quixotic bird.
+  type Quixotic[F[_]] = {
+    type Apply[A] = {
+      type Apply[G[_]] = F[G[A]]
+    }
+  }
+  // TODO example
+
+  // Q2 combinator - quizzical bird.
+  type Quizzical[A] = {
+    type Apply[F[_]] = {
+      type Apply[G[_]] = F[G[A]]
+    }
+  }
+  // TODO example
+
+  // R combinator - robin.
+  type Robin[A] = {
+    type Apply[F[_,_]] = {
+      type Apply[B] = F[B,A]
+    }
+  }
+  // TODO example
+
+  // R* combinator - robin once removed.
+  type RobinStar[F[_,_,_]] = {
+    type Apply[A] = {
+      type Apply[B] = {
+        type Apply[C] = F[B,C,A]
+      }
+    }
+  }
+  // TODO example
+
+  // R* combinator - robin twice removed.
+  type RobinStarStar[F[_,_,_,_]] = {
+    type Apply[A,B,C,D] = F[A,C,D,B]
+  }
+  // TODO example
+
+  // S combinator - starling.
+  // Applicative <*> on functions.
+  // Substitution
+  type Starling[F[_,_]] = {
+    type Apply[G[_]] = {
+      type Apply[A] = F[A,G[A]]
+    }
+  }
+  // TODO example
+
+  // S' combinator - starling prime - Turner's big phi. 
+  // liftA2 on functions.
+  type StarlingPrime[F[_,_]] = {
+    type Apply[G[_]] = {
+      type Apply[H[_]] = {
+        type Apply[A] = F[G[A],H[A]]
+      }
+    }
+  }
+  // TODO example
+
+  // T combinator - thrush.
+  // Peter Thiemann's Wash, reverse application.
+  type Thrush[A] = {
+    type Apply[F[_]] = F[A]
+  }
+  // TODO example
+
+  // V combinator - vireo.
+  type Vireo[A] = {
+    type Apply[B] = {
+      type Apply[F[_,_]] = F[A,B]
+    }
+  }
+  // TODO example
+
+  // V* combinator - vireo once removed.
+  type VireoStar[F[_,_,_]] = {
+    type Apply[A] = {
+      type Apply[B] = {
+        type Apply[C] = F[B,A,C]
+      }
+    }
+  }
+  // TODO example
+
+  // V** combinator - vireo twice removed.
+  type VireoStarStar[F[_,_,_,_]] = {
+    type Apply[A] = {
+      type Apply[B] = {
+        type Apply[C,D] = {
+          type Apply[D] = F[A,D,B,C]
+        }
+      }
+    }
+  }
+  // TODO example
+
+  // W combinator - warbler - elementary duplicator.
+  type Warbler[F[_,_]] = {
+    type Apply[A] = F[A,A]
+  }
+  // TODO example
+
+  // W1 combinator - converse warbler.
+  // 'warbler' with the arguments reversed.
+  type Warbler1[A] = {
+    type Apply[F[_,_]] = F[A,A]
+  }
+  // TODO example
+
+  // W* combinator - warbler once removed.
+  type WarblerStar[F[_,_,_]] = {
+    type Apply[A] = {
+      type Apply[B] = F[A,B,B]
+    }
+  }
+  // TODO example
+
+  // W** combinator - warbler twice removed.
+  type WarblerStarStar[F[_,_,_,_]] = {
+    type Apply[A] = {
+      type Apply[B] = {
+        type Apply[C] = F[A, B, C, C]
+      }
+    }
   }
   // TODO example
 
