@@ -108,11 +108,86 @@ object Birds {
   type Eaglebald[F[_,_], G[_,_], H[_,_]] = {
     type Apply[A,B,C,D] = F[G[A,B],H[C,D]]
   }
+  // TODO example
+
+  // F combinator - finch.
+  type Finch[A,B] = {
+    type Apply[F[_,_]] = F[A,B]
+  }
+  val finch: Finch[Int, String]#Apply[Map] = Map.empty
+
+  // F* combinator - finch once removed.
+  type FinchStar[F[_,_,_]] = {
+    type Apply[A,B,C] = F[C,B,A]
+  }
+
+  // F** combinator - finch twice removed.
+  type FinchStarStar[F[_,_,_,_]] = {
+    type Apply[A,B,C,D] = F[A,D,C,B]
+  }
+  // TODO example
+
+  // G combinator - goldfinch.
+  type GoldFinch[F[_,_], G[_]] = {
+    type Apply[A,B] = F[B,G[A]]
+  }
+  // TODO example
+
+  // H combinator - hummingbird.
+  type Hummingbird[F[_,_,_]] {
+    type Apply[A,B] = F[A,B,A]
+  }
+  // TODO example
 
   // M combinator - mockingbird (Really?).
   type Mockingbird[F[_]] = {
     type Apply = F[F[_]]
   }
   val p: Mockingbird[List]#Apply = Nil
+
+  // I* combinator - identity bird once removed
+  //Alias of 'applicator'
+  type IdStar[F[_]] = Applicator[F]
+
+  // I** combinator - identity bird twice removed
+  type IdStarStar[F[_,_]] = {
+    type Apply[A,B] = F[A,B]
+  }
+  // TODO example
+
+  // Alternative J combinator - this is the J combintor of Joy,
+  // Rayward-Smith and Burton (see. Antoni Diller 'Compiling 
+  // Functional Languages' page 104). It is not the J - jay 
+  // combinator of the literature. 
+  type Jalt[F[_]] = {
+    type Apply[A,B] = F[A]
+  }
+  // TODO example
+
+  // ' combinator - from Joy, Rayward-Smith and Burton.
+  // See the comment to 'jalt'.
+  type JaltPrime[F[_,_]] = {
+    type Apply[A,B,C] = F[A,B]
+  }
+  // TODO example
+
+  // This is the usual J combinator.
+  type Jay[F[_,_]] = {
+    type Apply[A,B,C] = F[A,F[C,B]]
+  }
+
+  // Ki - kite.
+  // Corresponds to the encoding of @false@ in the lambda calculus.
+  // Dual to Kestrel
+  type Kite[A] = {
+    type Apply[B] = B
+  }
+  // TODO example
+
+  // O combinator - owl.
+  type Owl[F[_]] = {
+    type Apply[G[_]] = G[F[G[_]]]
+  }
+  // TODO example
 
 }
