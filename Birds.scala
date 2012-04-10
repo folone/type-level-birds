@@ -58,6 +58,61 @@ object Birds {
   type Bunting[F[_], G[_,_,_]] = {
     type Apply[A,B,C] = F[G[A,B,C]]
   }
+  import scala.collection.generic._
   val bunting: Bunting[List, CanBuildFrom]#Apply[List[String], Int, Set[String]] = Nil
+
+  // C' combinator - no name.
+  type CardinalPrime[F[_,_], G[_]] = {
+    type Apply[A,B] = F[G[B],A]
+  }
+  val cardinalPrime: CardinalPrime[Map, List]#Apply[Int, String] = Map.empty
+
+  // C* combinator - cardinal once removed.
+  type CardinalStar[F[_,_,_]] = {
+    type Apply[A,B,C] = F[A,C,B]
+  }
+  var cardinalStar: CardinalStar[CanBuildFrom]#Apply[List[String], Int, Set[String]] = _
+
+  // C** combinator - cardinal twice removed.
+  type CardinalStarStar[F[_,_,_,_]] = {
+    type Apply[A,B,C,D] = F[A,B,D,C]
+  }
+  // TODO example
+
+  // D1 combinator - dickcissel.
+  type Dickcissel[F[_,_,_], G[_]] = {
+    type Apply[A,B,C] = F[A,B,G[C]]
+  }
+  // TODO example
+
+  // D combinator - dove.
+  type Dove[F[_,_], G[_]] = {
+    type Apply[A,B] = F[A,G[B]]
+  }
+  // TODO example
+
+  // D2 combinator - dovekie.
+  type Dovekie[F[_,_], G[_], H[_]] = {
+    type Apply[A,B] = F[G[A],H[B]]
+  }
+  // TODO example
+
+  // E combinator - eagle.
+  type Eagle[F[_,_], G[_,_]] = {
+    type Apply[A,B,C] = F[A,G[B,C]]
+  }
+  // TODO example
+
+  // E Combinator - bald eagle.
+  // For alphabetical regularity it is somewhat misnamed here as eaglebald.
+  type Eaglebald[F[_,_], G[_,_], H[_,_]] = {
+    type Apply[A,B,C,D] = F[G[A,B],H[C,D]]
+  }
+
+  // M combinator - mockingbird (Really?).
+  type Mockingbird[F[_]] = {
+    type Apply = F[F[_]]
+  }
+  val p: Mockingbird[List]#Apply = Nil
 
 }
