@@ -1,6 +1,8 @@
+package info.folone.birds
+
 object Birds {
 
-  // I combinator - identity bird / idion bird
+  // I combinator - identity bird / idiot bird
   type Idiot = {
     type Apply[A] = A
   }
@@ -273,7 +275,7 @@ object Birds {
   }
 
   // Ki - kite.
-  // Corresponds to the encoding of @false@ in the lambda calculus.
+  // Corresponds to the encoding of false in the lambda calculus.
   // Dual to Kestrel
   type Kite[A] = {
     type Apply[B] = B
