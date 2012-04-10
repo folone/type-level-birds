@@ -95,6 +95,7 @@ object Birds {
       }
     }
   }
+  import scala.collection.generic._
   var cardinalStar: CardinalStar[CanBuildFrom]#Apply[List[String]]#Apply[Int]#Apply[Set[String]] = _
 
   // C** combinator - cardinal twice removed.

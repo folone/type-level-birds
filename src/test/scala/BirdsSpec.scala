@@ -48,7 +48,7 @@ class BirdsSpec extends Specification {
   def ap = (Nil: Applicator[List]#Apply[Int]) mustEqual(List[Int]())
   def ps = (Map.empty: Psi[Map]#Apply[List]#Apply[Int]#Apply[String])
     .mustEqual(Map.empty[List[Int], List[String]])
-  def b3 = (Nil: Becard[List]#Apply[Set]#Apply[List]#Apply[Int]) mustEqual(List[Set[List[Int]]])
+  def b3 = (Nil: Becard[List]#Apply[Set]#Apply[List]#Apply[Int]) mustEqual(List[Set[List[Int]]]())
   def bb = (Nil: Blackbird[List]#Apply[Either]#Apply[Int]#Apply[String])
     .mustEqual(List[Either[Int, String]]())
   def b2 = (Nil: Bunting[List]#Apply[CanBuildFrom]#Apply[List[String]]#Apply[Int]#Apply[Set[String]])
