@@ -43,6 +43,9 @@ class BirdsSpec extends Specification {
                                                         p^
     "Finch should"                                       ^
       "produce expected type"                        !  f^
+                                                        p^
+    "Mockingbird should"                                 ^
+      "produce expected type"                        ! mo^
                                                        end
   def id = (Nil: Idiot#Apply[List[Int]]) mustEqual(List[Int]())
   def k  = (Nil: Kestrel[List[Int]]#Apply[List[String]]) mustEqual(List[Int]())
@@ -65,4 +68,7 @@ class BirdsSpec extends Specification {
   def cp = (Map.empty: CardinalPrime[Map]#Apply[List]#Apply[Int]#Apply[String])
     .mustEqual(Map.empty[List[String],Int])
   def f  = (Map.empty: Finch[Int]#Apply[String]#Apply[Map]) mustEqual(Map.empty[Int,String])
+  // What's happening here?
+  def mo = (Nil: Mockingbird[List]#Apply) mustEqual(Nil: List[List[Int]])
+
 }
