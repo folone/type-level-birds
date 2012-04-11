@@ -314,10 +314,11 @@ object Birds {
   }
 
   /**
-   * M combinator - mockingbird (Really?).
+   * M combinator - mockingbird.
+   * Is this even correct?
    */
   type Mockingbird[F[_]] = {
-    type Apply = F[F[_]]
+    type Apply = F[this.type]
   }
 
   /**
@@ -506,6 +507,13 @@ object Birds {
         type Apply[C] = F[A, B, C, C]
       }
     }
+  }
+
+  /**
+   * Y combinator - why bird (aka sage bird).
+   */
+  type Why[F[_]] = {
+    type Apply = F[this.type]
   }
 
 }
