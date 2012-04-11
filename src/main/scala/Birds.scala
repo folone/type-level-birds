@@ -108,7 +108,6 @@ object Birds {
       }
     }
   }
-  // TODO example
 
   // D1 combinator - dickcissel.
   type Dickcissel[F[_,_,_]] = {
@@ -120,7 +119,6 @@ object Birds {
       }
     }
   }
-  // TODO example
 
   // D combinator - dove.
   type Dove[F[_,_]] = {
@@ -142,7 +140,6 @@ object Birds {
       }
     }
   }
-  // TODO example
 
   // E combinator - eagle.
   type Eagle[F[_,_]] = {
@@ -154,7 +151,6 @@ object Birds {
       }
     }
   }
-  // TODO example
 
   // E Combinator - bald eagle.
   // For alphabetical regularity it is somewhat misnamed here as eaglebald.
@@ -171,7 +167,6 @@ object Birds {
       }
     }
   }
-  // TODO example
 
   // F combinator - finch.
   type Finch[A] = {
@@ -200,7 +195,6 @@ object Birds {
       }
     }
   }
-  // TODO example
 
   // G combinator - goldfinch.
   type GoldFinch[F[_,_]] = {
@@ -210,7 +204,6 @@ object Birds {
       }
     }
   }
-  // TODO example
 
   // H combinator - hummingbird.
   type Hummingbird[F[_,_,_]] = {
@@ -218,7 +211,6 @@ object Birds {
       type Apply[B] = F[A,B,A]
     }
   }
-  // TODO example
 
   // I* combinator - identity bird once removed
   //Alias of 'applicator'
@@ -230,7 +222,6 @@ object Birds {
       type Apply[B] = F[A,B]
     }
   }
-  // TODO example
 
   // Alternative J combinator - this is the J combintor of Joy,
   // Rayward-Smith and Burton (see. Antoni Diller 'Compiling 
@@ -241,7 +232,6 @@ object Birds {
       type Apply[B] = F[A]
     }
   }
-  // TODO example
 
   // ' combinator - from Joy, Rayward-Smith and Burton.
   // See the comment to 'jalt'.
@@ -252,7 +242,6 @@ object Birds {
       }
     }
   }
-  // TODO example
 
   // This is the usual J combinator.
   type Jay[F[_,_]] = {
@@ -269,7 +258,6 @@ object Birds {
   type Kite[A] = {
     type Apply[B] = B
   }
-  // TODO example
 
   // M combinator - mockingbird (Really?).
   type Mockingbird[F[_]] = {
@@ -281,7 +269,6 @@ object Birds {
   type Owl[F[_]] = {
     type Apply[G[_]] = G[F[G[_]]]
   }
-  // TODO example
 
   // (Big) Phi combinator - phoenix - Haskell 'liftM2'.
   type Phoenix[F[_,_]] = {
@@ -291,7 +278,6 @@ object Birds {
       }
     }
   }
-  // TODO example
 
   // Q4 combinator - quacky bird.
   type Quacky[A] = {
@@ -299,7 +285,6 @@ object Birds {
       type Apply[G[_]] = G[F[A]]
     }
   }
-  // TODO example
 
   // Q combinator - queer bird.
   //Peter Thiemann\'s Wash, reverse composition.
@@ -308,7 +293,6 @@ object Birds {
       type Apply[A] = G[F[A]]
     }
   }
-  // TODO example
 
   // Q3 combinator - quirky bird.
   type Quirky[F[_]] = {
@@ -316,7 +300,6 @@ object Birds {
       type Apply[G[_]] = G[F[A]]
     }
   }
-  // TODO example
 
   // Q1 combinator - quixotic bird.
   type Quixotic[F[_]] = {
@@ -324,7 +307,6 @@ object Birds {
       type Apply[G[_]] = F[G[A]]
     }
   }
-  // TODO example
 
   // Q2 combinator - quizzical bird.
   type Quizzical[A] = {
@@ -332,7 +314,6 @@ object Birds {
       type Apply[G[_]] = F[G[A]]
     }
   }
-  // TODO example
 
   // R combinator - robin.
   type Robin[A] = {
@@ -340,7 +321,6 @@ object Birds {
       type Apply[B] = F[B,A]
     }
   }
-  // TODO example
 
   // R* combinator - robin once removed.
   type RobinStar[F[_,_,_]] = {
@@ -350,13 +330,11 @@ object Birds {
       }
     }
   }
-  // TODO example
 
   // R* combinator - robin twice removed.
   type RobinStarStar[F[_,_,_,_]] = {
     type Apply[A,B,C,D] = F[A,C,D,B]
   }
-  // TODO example
 
   // S combinator - starling.
   // Applicative <*> on functions.
@@ -366,7 +344,6 @@ object Birds {
       type Apply[A] = F[A,G[A]]
     }
   }
-  // TODO example
 
   // S' combinator - starling prime - Turner's big phi. 
   // liftA2 on functions.
@@ -377,14 +354,12 @@ object Birds {
       }
     }
   }
-  // TODO example
 
   // T combinator - thrush.
   // Peter Thiemann's Wash, reverse application.
   type Thrush[A] = {
     type Apply[F[_]] = F[A]
   }
-  // TODO example
 
   // V combinator - vireo.
   type Vireo[A] = {
@@ -392,7 +367,6 @@ object Birds {
       type Apply[F[_,_]] = F[A,B]
     }
   }
-  // TODO example
 
   // V* combinator - vireo once removed.
   type VireoStar[F[_,_,_]] = {
@@ -402,7 +376,6 @@ object Birds {
       }
     }
   }
-  // TODO example
 
   // V** combinator - vireo twice removed.
   type VireoStarStar[F[_,_,_,_]] = {
@@ -414,20 +387,17 @@ object Birds {
       }
     }
   }
-  // TODO example
 
   // W combinator - warbler - elementary duplicator.
   type Warbler[F[_,_]] = {
     type Apply[A] = F[A,A]
   }
-  // TODO example
 
   // W1 combinator - converse warbler.
   // 'warbler' with the arguments reversed.
   type Warbler1[A] = {
     type Apply[F[_,_]] = F[A,A]
   }
-  // TODO example
 
   // W* combinator - warbler once removed.
   type WarblerStar[F[_,_,_]] = {
@@ -435,7 +405,6 @@ object Birds {
       type Apply[B] = F[A,B,B]
     }
   }
-  // TODO example
 
   // W** combinator - warbler twice removed.
   type WarblerStarStar[F[_,_,_,_]] = {
@@ -445,6 +414,5 @@ object Birds {
       }
     }
   }
-  // TODO example
 
 }
