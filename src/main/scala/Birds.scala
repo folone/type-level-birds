@@ -315,10 +315,10 @@ object Birds {
 
   /**
    * M combinator - mockingbird.
-   * Is this even correct?
+   * expressing through ski-form: SII
    */
-  type Mockingbird[F[_]] = {
-    type Apply = F[this.type]
+  type Mockingbird = {
+    type Apply[A] = Starling[Map]#Apply[Idiot#Apply]#Apply[Idiot#Apply[A]]
   }
 
   /**
