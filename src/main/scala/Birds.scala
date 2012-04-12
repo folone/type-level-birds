@@ -317,8 +317,8 @@ object Birds {
    * M combinator - mockingbird.
    * expressing through ski-form: SII
    */
-  type Mockingbird = {
-    type Apply[A] = Starling[Map]#Apply[Idiot#Apply]#Apply[Idiot#Apply[A]]
+  type Mockingbird[F[_,_]] = {
+    type Apply[A] = Starling[F]#Apply[Idiot#Apply]#Apply[Idiot#Apply[A]]
   }
 
   /**
