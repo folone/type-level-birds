@@ -42,6 +42,12 @@ class BirdsSpec extends Specification with ScalaCheck {
                                                                       p^
     "Cardinal' should"                                                 ^
       "produce expected type"                                      ! cp^
+                                                                      p^
+    "Finch should"                                                     ^
+      "produce expected type"                                      !  f^
+                                                                      p^
+    "Why should"                                                       ^
+      "produce expected type"                                      !  w^
                                                                     end
 
   def id = checkProp {
@@ -75,4 +81,8 @@ class BirdsSpec extends Specification with ScalaCheck {
   def cp = checkProp {
     (map: Map[List[String], Int]) => typed[Map[List[String], Int]](map: CardinalPrime[Map]#Apply[List]#Apply[Int]#Apply[String]) must beTrue
   }
+  def f  = checkProp {
+    (map: Map[Int, String]) => typed[Map[Int, String]](Map.empty: Finch[Int]#Apply[String]#Apply[Map]) must beTrue
+  }
+  def w  = (Nil: Why[List]#Apply) mustEqual(List[Why[List]]())
 }
