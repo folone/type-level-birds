@@ -1,5 +1,6 @@
 target
 project
+.lib
 
 # the following is for vi and emacs users
 *~

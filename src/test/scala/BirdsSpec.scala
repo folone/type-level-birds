@@ -2,9 +2,11 @@ package info.folone.birds.test
 
 import info.folone.birds.Birds._
 import org.specs2._
+import org.scalacheck._
 import scala.collection.generic._
 
-class BirdsSpec extends Specification {
+class BirdsSpec extends Specification with ScalaCheck {
+  def typed[T](t : => T) = true
   def is =
     "This is a specification to check our birds types"                 ^
                                                                       p^
@@ -41,20 +43,36 @@ class BirdsSpec extends Specification {
     "Cardinal' should"                                                 ^
       "produce expected type"                                      ! cp^
                                                                     end
-  def id = (Nil: Idiot#Apply[List[Int]]) mustEqual(List[Int]())
-  def k  = (Nil: Kestrel[List[Int]]#Apply[List[String]]) mustEqual(List[Int]())
-  def b  = (Nil: Bluebird[List]#Apply[List]#Apply[Int]) mustEqual(List[List[Int]]())
-  def c  = (Map.empty: Cardinal[Map]#Apply[String]#Apply[Int]) mustEqual(Map.empty[Int, String])
-  def ap = (Nil: Applicator[List]#Apply[Int]) mustEqual(List[Int]())
-  def ps = (Map.empty: Psi[Map]#Apply[List]#Apply[Int]#Apply[String])
-    .mustEqual(Map.empty[List[Int], List[String]])
-  def b3 = (Nil: Becard[List]#Apply[Set]#Apply[List]#Apply[Int]) mustEqual(List[Set[List[Int]]]())
-  def bb = (Nil: Blackbird[List]#Apply[Either]#Apply[Int]#Apply[String])
-    .mustEqual(List[Either[Int, String]]())
-  def b2 = (Nil: Bunting[List]#Apply[CanBuildFrom]#Apply[List[String]]#Apply[Int]#Apply[Set[String]])
-    .mustEqual(List[CanBuildFrom[List[String],Int,Set[String]]]())
-  def bp = (Map.empty: BluebirdPrime[Map]#Apply[List]#Apply[Int]#Apply[String])
-    .mustEqual(Map.empty[Int, List[String]])
-  def cp = (Map.empty: CardinalPrime[Map]#Apply[List]#Apply[Int]#Apply[String])
-    .mustEqual(Map.empty[List[String],Int])
+
+  def id = checkProp {
+    (lst: List[Int]) => typed[List[Int]](lst: Idiot#Apply[List[Int]]) must beTrue
+  }
+  def k  = checkProp {
+    (lst: List[Int]) => typed[List[Int]](lst: Kestrel[List[Int]]#Apply[List[String]]) must beTrue
+  }
+  def b  = checkProp {
+    (lst: List[List[Int]]) => typed[List[List[Int]]](lst: Bluebird[List]#Apply[List]#Apply[Int]) must beTrue
+  }
+  def c  = checkProp {
+    (map: Map[Int, String]) => typed[Map[Int, String]](map: Cardinal[Map]#Apply[String]#Apply[Int]) must beTrue
+  }
+  def ap = checkProp {
+    (lst: List[Int]) => typed[List[Int]](lst: Applicator[List]#Apply[Int]) must beTrue
+  }
+  def ps = checkProp {
+    (map: Map[List[Int], List[String]]) => typed[Map[List[Int], List[String]]](map: Psi[Map]#Apply[List]#Apply[Int]#Apply[String]) must beTrue
+  }
+  def b3 = checkProp {
+    (lst: List[Set[List[Int]]]) => typed[List[Set[List[Int]]]](lst: Becard[List]#Apply[Set]#Apply[List]#Apply[Int]) must beTrue
+  }
+  def bb = checkProp {
+    (lst: List[Either[Int, String]]) => typed[List[Either[Int, String]]](lst: Blackbird[List]#Apply[Either]#Apply[Int]#Apply[String]) must beTrue
+  }
+  def b2 = typed[List[CanBuildFrom[List[String],Int,Set[String]]]](Nil: Bunting[List]#Apply[CanBuildFrom]#Apply[List[String]]#Apply[Int]#Apply[Set[String]]) must beTrue
+  def bp = checkProp {
+    (map: Map[Int, List[String]]) => typed[Map[Int, List[String]]](map: BluebirdPrime[Map]#Apply[List]#Apply[Int]#Apply[String]) must beTrue
+  }
+  def cp = checkProp {
+    (map: Map[List[String], Int]) => typed[Map[List[String], Int]](map: CardinalPrime[Map]#Apply[List]#Apply[Int]#Apply[String]) must beTrue
+  }
 }
