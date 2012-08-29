@@ -82,7 +82,7 @@ class BirdsSpec extends Specification with ScalaCheck {
     (map: Map[List[String], Int]) => typed[Map[List[String], Int]](map: CardinalPrime[Map]#Apply[List]#Apply[Int]#Apply[String]) must beTrue
   }
   def f  = checkProp {
-    (map: Map[Int, String]) => typed[Map[Int, String]](Map.empty: Finch[Int]#Apply[String]#Apply[Map]) must beTrue
+    (map: Map[Int, String]) => typed[Map[Int, String]](map: Finch[Int]#Apply[String]#Apply[Map]) must beTrue
   }
-  def w  = (Nil: Why[List]#Apply) mustEqual(List[Why[List]]())
-}
+  def w  = typed[List[Why[List]]](Nil: Why[List]#Apply) must beTrue
+} 
